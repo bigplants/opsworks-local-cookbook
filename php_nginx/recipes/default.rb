@@ -13,7 +13,7 @@ apt_repository "ondrej-php-#{node["lsb"]["codename"]}" do
   notifies :run, "execute[apt-get update]", :immediately
 end
 
-packages = %w{git subversion nginx php5-common php5 php5-mysql  php5-pgsql php5-curl php5-mcrypt php5-cli php5-fpm php-pear mysql-server postgresql curl imagemagick php5-imagick}
+packages = %w{git subversion nginx php5-common php5 php5-mysql  php5-pgsql php5-curl php5-mcrypt php5-cli php5-fpm php-pear mysql-server postgresql curl imagemagick php5-imagick php5-xdebug}
 
 packages.each do |pkg|
   package pkg do
