@@ -1,10 +1,3 @@
-bash "composer update" do
-  code <<-EOS
-    cd #{node[:app_root]}; composer update
-  EOS
-end
-
-
 # tmpディレクトリ作成
 directory "#{node[:app_root]}app/tmp" do
   owner 'deploy'
@@ -14,11 +7,12 @@ directory "#{node[:app_root]}app/tmp" do
   not_if {::File.exists?("#{node[:app_root]}app/tmp")}
 end
 
-# Cakeのコンソール
+# Cakeのコンソール(dbの情報が取得できた場合のみ)
 bash "cake db migration" do
   code <<-EOS
     cd #{node[:app_root]}app; yes | ./Console/cake migrations.migration run all
   EOS
+  not_if {deploy[:database][:host] == ''}
 end
 
 # tmpディレクトリを一旦削除
