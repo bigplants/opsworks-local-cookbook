@@ -8,11 +8,14 @@ directory "#{node[:app_root]}app/tmp" do
 end
 
 # Cakeのコンソール(dbの情報が取得できた場合のみ)
-bash "cake db migration" do
-  code <<-EOS
-    cd #{node[:app_root]}app; yes | ./Console/cake migrations.migration run all
-  EOS
-  not_if {deploy[:database][:host] == ''}
+node[:deploy].each do |application,deploy|
+    deploy = node[:deploy][application]
+    bash "cake db migration" do
+      code <<-EOS
+        cd #{node[:app_root]}app; yes | ./Console/cake migrations.migration run all
+      EOS
+      not_if {deploy[:database][:host].nil?}
+    end
 end
 
 # tmpディレクトリを一旦削除
