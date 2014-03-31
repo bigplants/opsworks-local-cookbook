@@ -13,7 +13,7 @@ apt_repository "ondrej-php-#{node["lsb"]["codename"]}" do
   notifies :run, "execute[apt-get update]", :immediately
 end
 
-packages = %w{git subversion nginx php5-common php5 php5-mysql  php5-pgsql php5-curl php5-mcrypt php5-cli php5-fpm php-pear mysql-server postgresql curl imagemagick php5-imagick php5-xdebug}
+packages = %w{vim git subversion nginx php5-common php5 php5-mysql  php5-pgsql php5-curl php5-mcrypt php5-cli php5-fpm php-pear mysql-server postgresql curl imagemagick php5-imagick php5-xdebug}
 
 packages.each do |pkg|
   package pkg do
@@ -30,6 +30,11 @@ end
 execute "composer-install" do
   command "curl -sS https://getcomposer.org/installer | php ;mv composer.phar /usr/local/bin/composer"
   not_if { ::File.exists?("/usr/local/bin/composer")}
+end
+
+template "/etc/nginx/nginx.conf" do
+  mode 0644
+  source "nginx.conf.erb"
 end
 
 template "/etc/nginx/conf.d/php-fpm.conf" do

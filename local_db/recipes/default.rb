@@ -6,6 +6,12 @@ packages.each do |pkg|
     version node[:versions][pkg]
   end
 end
+
+template "/etc/mysql/my.cnf" do
+  mode 0644
+  source "my.cnf.erb"
+end
+
 %w{mysql}.each do |service_name|
     service service_name do
       action [:start, :restart]
