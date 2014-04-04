@@ -20,3 +20,6 @@
 [submodule "xml"]
 	path = xml
 	url = https://github.com/opscode-cookbooks/xml.git
+[submodule "windows"]
+	path = windows
+	url = https://github.com/opscode-cookbooks/windows.git
