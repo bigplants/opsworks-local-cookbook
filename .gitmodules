@@ -5,3 +5,6 @@
 	path = python
 	url = https://github.com/poise/python.git
 
+[submodule "build-essential"]
+	path = build-essential
+	url = https://github.com/opscode-cookbooks/build-essential.git
