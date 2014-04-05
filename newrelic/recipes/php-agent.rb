@@ -105,6 +105,13 @@ case node['newrelic']['php-agent']['startup_mode']
             command "mv /etc/newrelic/upgrade_please.key /etc/newrelic/upgrade_please.key.external"
             only_if do File.exists?("/etc/newrelic/upgrade_please.key") end
         end
+
+
+        execute "copy newrelic.ini to fpm/cond.d" do
+            command "cp #{node['newrelic']['php-agent']['config_file']} /etc/php5/fpm/conf.d/"
+            notifies :restart, "service[php5-fpm]", :delayed
+        end
+
     when "external"
         #external startup mode
 
