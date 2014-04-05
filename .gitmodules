@@ -10,10 +10,3 @@
 [submodule "yum"]
 	path = yum
 	url = https://github.com/opscode-cookbooks/yum.git
-[submodule "php"]
-	path = php
-	url = https://github.com/opscode-cookbooks/php.git
-[submodule "xml"]
-	path = xml
-	url = https://github.com/opscode-cookbooks/xml.git
-
